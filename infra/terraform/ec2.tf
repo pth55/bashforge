@@ -26,6 +26,8 @@ resource "aws_instance" "app" {
     volume_type = "gp3"
   }
 
+  user_data_replace_on_change = true
+
   user_data = templatefile("${path.module}/templates/userdata.sh.tpl", {
     domain       = var.domain
     region       = var.region

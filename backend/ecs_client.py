@@ -97,7 +97,7 @@ class RealECSClient:
 
     async def _get_task_ip(self, task_arn: str) -> str:
         s = self.settings
-        ip_key = "publicIPv4Address" if s.assign_public_ip else "privateIPv4Address"
+        ip_key = "privateIPv4Address"  # backend proxies via private IP (same VPC); public IP for ECR pull only
         deadline = time.time() + 30
         while time.time() < deadline:
             resp = await asyncio.to_thread(

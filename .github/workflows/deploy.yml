@@ -143,6 +143,9 @@ jobs:
             sed -i "s|${REGISTRY}/${PREFIX}-backend:.*|${REGISTRY}/${PREFIX}-backend:${TAG}|g" \
                 docker-compose.prod.yml
 
+            echo "=== Ensure Redis is running ==="
+            docker compose -f docker-compose.prod.yml up -d redis
+
             echo "=== Rolling deploy ==="
             docker compose -f docker-compose.prod.yml up -d --no-deps --remove-orphans frontend backend
 

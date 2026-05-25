@@ -42,7 +42,7 @@ resource "aws_iam_role_policy" "ec2_ecs" {
     Statement = [
       {
         Effect   = "Allow"
-        Action   = ["ecs:RunTask", "ecs:StopTask", "ecs:DescribeTasks", "ecs:ListTasks", "ecs:DescribeTaskDefinition"]
+        Action   = ["ecs:RunTask", "ecs:StopTask", "ecs:DescribeTasks", "ecs:ListTasks", "ecs:DescribeTaskDefinition", "ecs:TagResource"]
         Resource = "*"
       },
       {

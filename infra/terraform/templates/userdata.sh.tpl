@@ -35,6 +35,7 @@ CORS_ORIGINS=["https://${domain}"]
 DEBUG=false
 MOCK_ECS=false
 AWS_DEFAULT_REGION=${region}
+AWS_REGION=${region}
 ECS_CLUSTER=bashforge
 ECS_TASK_DEFINITION=bashforge-sandbox
 ECS_SUBNETS=${ecs_subnets}
@@ -114,7 +115,7 @@ server {
         proxy_set_header   X-Real-IP         $remote_addr;
         proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
         proxy_set_header   X-Forwarded-Proto $scheme;
-        proxy_read_timeout 30s;
+        proxy_read_timeout 130s;
     }
 
     location /ws/ {
