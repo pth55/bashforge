@@ -8,9 +8,8 @@ interface FileTabsBarProps {
 }
 
 function fileIcon(name: string): string {
-  if (name.endsWith('.sh') || name.endsWith('.bash') || name.endsWith('.zsh')) return '⚡'
-  if (name.endsWith('.txt')) return '📄'
-  return '📄'
+  if (name.endsWith('.sh') || name.endsWith('.bash') || name.endsWith('.zsh')) return '$'
+  return '·'
 }
 
 export function FileTabsBar({ tabs, activeId, onActivate, onClose }: FileTabsBarProps) {
@@ -34,8 +33,9 @@ export function FileTabsBar({ tabs, activeId, onActivate, onClose }: FileTabsBar
           onClick={() => onActivate(tab.id)}
           title={tab.path}
         >
-          <span style={{ fontSize: 11 }}>{fileIcon(tab.name)}</span>
+          <span style={{ fontSize: 11, opacity: 0.6 }}>{fileIcon(tab.name)}</span>
           <span>{tab.name}</span>
+          {tab.modified && <span style={{ color: '#e3b341', fontSize: 10, lineHeight: 1 }}>●</span>}
           <button
             className="file-tab-close"
             onClick={(e) => { e.stopPropagation(); onClose(tab.id) }}

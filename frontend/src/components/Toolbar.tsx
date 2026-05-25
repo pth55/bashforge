@@ -1,18 +1,18 @@
 import type { ScriptRunState, WsStatus } from '../types'
 
 interface ToolbarProps {
-  onNew:        () => void
-  onOpen:       () => void
-  onSave:       () => void
-  onSaveAs:     () => void
-  onRun:        () => void
-  onStop:       () => void
-  runState:     ScriptRunState
-  onComment:    () => void
-  onSnippets:   () => void
-  onFind:       () => void
-  onEndSession: () => void
-  wsStatus:     WsStatus
+  onNew:          () => void
+  onOpen:         () => void
+  onSave:         () => void
+  onSaveAs:       () => void
+  onRun:          () => void
+  onStop:         () => void
+  runState:       ScriptRunState
+  onComment:      () => void
+  onSnippets:     () => void
+  onFind:         () => void
+  onEndSession:   () => void
+  wsStatus:       WsStatus
   activeSessions: number
 }
 
@@ -106,7 +106,6 @@ export function Toolbar({
 
       {/* Right: online count + end session */}
       <div className="toolbar-group right">
-        {/* Live online users badge */}
         <div className="tb-online-badge" title={`${activeSessions} active session${activeSessions !== 1 ? 's' : ''} right now`}>
           <span className="tb-online-dot" />
           <span className="tb-online-count">{activeSessions}</span>

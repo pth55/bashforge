@@ -221,9 +221,9 @@ func (s *Session) handleFileList(dir string) {
 	if dir == "" {
 		dir = workspace
 	}
-	// Resolve relative paths from workspace
+	// Resolve relative paths from homeDir (allows navigating workspace/ and siblings)
 	if !filepath.IsAbs(dir) {
-		dir = filepath.Join(workspace, dir)
+		dir = filepath.Join(homeDir, dir)
 	}
 	dir = filepath.Clean(dir)
 	if !safeInHome(dir) {

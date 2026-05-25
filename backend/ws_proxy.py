@@ -25,13 +25,11 @@ RETRY_DELAY  = 1.0
 
 
 class WSProxy:
-    def __init__(self, browser_ws: WebSocket, pod_ip: str,
-                 session_id: str, ws_token: str, mock: bool = False):
+    def __init__(self, browser_ws: WebSocket, pod_ip: str, session_id: str, ws_token: str):
         self.browser_ws = browser_ws
         self.pod_ip     = pod_ip
         self.session_id = session_id
         self.ws_token   = ws_token
-        self.mock       = mock
 
     async def _connect_to_pod(self):
         """Connect to pod with retries. Returns websocket or raises."""

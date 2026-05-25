@@ -72,10 +72,9 @@ jobs:
 
       - name: Run tests
         env:
-          REDIS_URL:   "redis://localhost:6379/0"
-          MOCK_K8S:    "true"
+          REDIS_URL:      "redis://localhost:6379/0"
+          MOCK_ECS:       "true"
           SECURE_COOKIES: "false"
-          COOKIE_SECRET:  "test_secret_ci"
           CORS_ORIGINS:   '["http://localhost:3000"]'
         run: cd backend && pytest tests/ -v --tb=short || echo "No tests yet — skipping"
 

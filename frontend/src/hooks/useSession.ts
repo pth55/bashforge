@@ -8,7 +8,7 @@ interface UseSessionReturn {
   isCreating:       boolean
   isChecking:       boolean
   error:            string | null
-  waitInfo:         WaitInfo | null   // set when at capacity
+  waitInfo:         WaitInfo | null
   createSession:    () => Promise<void>
   terminateSession: () => Promise<void>
   refreshTTL:       () => void
@@ -41,20 +41,20 @@ export function useSession(): UseSessionReturn {
           prev ? { ...prev, expiresAt: Math.floor(Date.now() / 1000) + data.remaining } : prev
         )
       }
-    } catch { /* network blip, ignore */ }
+    } catch { /* network blip */ }
   }, [session])
 
   const createSession = useCallback(async () => {
     setIsCreating(true)
     setError(null)
     try {
-      const res  = await fetch('/api/sessions/create', {
+      const res = await fetch('/api/sessions/create', {
         method:      'POST',
         credentials: 'include',
         headers:     { 'Content-Type': 'application/json' },
       })
       if (!res.ok) {
-        const body = await res.json().catch(() => ({ detail: 'Server error' }))
+        const body   = await res.json().catch(() => ({ detail: 'Server error' }))
         const detail = body.detail || `HTTP ${res.status}`
         if (typeof detail === 'string' && detail.startsWith('CAPACITY_REACHED:')) {
           const parts = detail.split(':')
@@ -97,14 +97,9 @@ export function useSession(): UseSessionReturn {
     setSession(null)
   }, [])
 
-  // Try to resume session on mount.
-  // Checks the HttpOnly cookie via /api/sessions/status so any tab or browser
-  // on the same machine that already has a session cookie will automatically resume.
+  // Resume session on mount via cookie check
   useEffect(() => {
     const tryResume = async () => {
-      // Always check the API — cookie is HttpOnly so we can't read it directly,
-      // but the server will see it and return the active session if one exists.
-      const sid = sessionStorage.getItem('bashforge_sid')
       try {
         const res  = await fetch('/api/sessions/status', { credentials: 'include' })
         if (!res.ok) { sessionStorage.removeItem('bashforge_sid'); setIsChecking(false); return }

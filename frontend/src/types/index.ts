@@ -29,22 +29,22 @@ export type WsMsgType =
   | 'file_new' | 'file_created' | 'session_info' | 'error' | 'ping' | 'pong'
 
 export interface WsControlMsg {
-  type:      WsMsgType
-  path?:     string
-  dir?:      string
-  name?:     string
-  content?:  string
-  args?:     string[]
-  cols?:     number
-  rows?:     number
-  files?:    RemoteFile[]
+  type:       WsMsgType
+  path?:      string
+  dir?:       string
+  name?:      string
+  content?:   string
+  args?:      string[]
+  cols?:      number
+  rows?:      number
+  files?:     RemoteFile[]
   remaining?: number
-  message?:  string
+  message?:   string
   exit_code?: number
-  elapsed?:  number
+  elapsed?:   number
 }
 
 export type WsStatus = 'connecting' | 'connected' | 'disconnected'
-export interface CursorPosition { line: number; col: number }
-export interface ScriptRunState { running: boolean; startTime: number | null; elapsedMs: number }
+export interface CursorPosition  { line: number; col: number }
+export interface ScriptRunState  { running: boolean; startTime: number | null; elapsedMs: number }
 export interface Toast { id: string; type: 'success' | 'error' | 'info' | 'warning'; message: string }

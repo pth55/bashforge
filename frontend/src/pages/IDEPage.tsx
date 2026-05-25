@@ -214,8 +214,7 @@ export default function IDEPage() {
 
   const handleOpen = useCallback(() => {
     setShowOpenModal(true)
-    // Start at workspace root
-    requestFileList('workspace')
+    requestFileList('/home/bashuser/workspace')
   }, [requestFileList])
 
   const handleOpenSelect = useCallback((path: string) => {
@@ -229,14 +228,11 @@ export default function IDEPage() {
   }, [requestFileList])
 
   const handleNavigateUp = useCallback(() => {
-    // Go up one directory level (but not above /home/bashuser)
-    const parts = fileListDir.replace(/^\/home\/bashuser\/?/, '').split('/').filter(Boolean)
-    if (parts.length <= 1) {
-      requestFileList('workspace')
-    } else {
-      parts.pop()
-      requestFileList(parts.join('/'))
-    }
+    const homeBase = '/home/bashuser'
+    if (!fileListDir || fileListDir === homeBase) return
+    const parent = fileListDir.split('/').slice(0, -1).join('/')
+    if (!parent.startsWith(homeBase)) return
+    requestFileList(parent || homeBase)
   }, [fileListDir, requestFileList])
 
   // Save: if file already has a path just save, only prompt for new files
