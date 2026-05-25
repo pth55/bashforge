@@ -63,6 +63,8 @@ services:
     image: ${ecr_registry}/bashforge-backend:latest
     restart: unless-stopped
     env_file: /opt/bashforge/.env
+    ports:
+      - "127.0.0.1:8000:8000"
     depends_on:
       redis:
         condition: service_healthy
