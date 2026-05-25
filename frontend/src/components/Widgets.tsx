@@ -100,7 +100,18 @@ export function FilePickerModal({
   const [filter, setFilter] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
   useEffect(() => { setTimeout(() => inputRef.current?.focus(), 50) }, [])
-  const filtered = files.filter(f => f.name.toLowerCase().includes(filter.toLowerCase()))
+
+  const filtered = files
+    .filter(f => f.name.toLowerCase().includes(filter.toLowerCase()))
+    .sort((a, b) => {
+      if (a.isDir !== b.isDir) return a.isDir ? -1 : 1
+      return a.name.localeCompare(b.name)
+    })
+
+  const atHome = currentDir === '/home/bashuser'
+  const displayDir = currentDir
+    ? currentDir.replace('/home/bashuser', '~')
+    : '~'
 
   return (
     <div className="modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose() }}>
@@ -108,14 +119,12 @@ export function FilePickerModal({
         <div className="modal-header">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <span className="modal-title">{title}</span>
-            {currentDir && (
-              <span style={{ fontSize: 10, color: 'var(--fg-comment)', fontFamily: 'var(--font-mono)' }}>
-                /home/bashuser/{currentDir.replace(/^workspace\/?/, '')}
-              </span>
-            )}
+            <span style={{ fontSize: 10, color: 'var(--fg-comment)', fontFamily: 'var(--font-mono)' }}>
+              {displayDir}
+            </span>
           </div>
           <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-            {onNavigateUp && (
+            {onNavigateUp && !atHome && (
               <button className="modal-btn" onClick={onNavigateUp}
                 title="Go up one directory"
                 style={{ padding: '3px 10px', fontSize: 12 }}>

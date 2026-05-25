@@ -214,7 +214,7 @@ export default function IDEPage() {
 
   const handleOpen = useCallback(() => {
     setShowOpenModal(true)
-    requestFileList('/home/bashuser/workspace')
+    requestFileList('/home/bashuser')
   }, [requestFileList])
 
   const handleOpenSelect = useCallback((path: string) => {

@@ -52,7 +52,7 @@ type FileInfo struct {
 	Path     string `json:"path"`
 	Size     int64  `json:"size"`
 	Modified int64  `json:"modified"`
-	IsDir    bool   `json:"is_dir"`
+	IsDir    bool   `json:"isDir"`
 }
 
 type Session struct {
