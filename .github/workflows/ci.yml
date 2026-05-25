@@ -92,10 +92,10 @@ jobs:
           cache-dependency-path: sandbox/go.sum
 
       - name: Download Go modules
-        run: cd sandbox && go mod download
+        run: cd sandbox && GOFLAGS=-mod=mod go mod download
 
       - name: Build
-        run: cd sandbox && CGO_ENABLED=0 GOOS=linux go build -o bash-ws-server .
+        run: cd sandbox && CGO_ENABLED=0 GOOS=linux GOFLAGS=-mod=mod go build -o bash-ws-server .
 
       - name: Vet
         run: cd sandbox && go vet ./...
