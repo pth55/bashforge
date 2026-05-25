@@ -295,6 +295,16 @@ logs/
 # AWS
 .aws/
 
+# Terraform
+infra/terraform/backend.hcl
+infra/terraform/terraform.tfvars
+infra/terraform/*.tfvars
+!infra/terraform/*.tfvars.example
+infra/terraform/.terraform/
+infra/terraform/.terraform.lock.hcl
+infra/terraform/terraform.tfstate
+infra/terraform/terraform.tfstate.backup
+
 # SSH keys (if any)
 *.pem
 *.key

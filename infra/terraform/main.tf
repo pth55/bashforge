@@ -8,12 +8,7 @@ terraform {
     }
   }
 
-  backend "s3" {
-    bucket       = "bashforge-cicd-tf-905418054237-us-east-1-an"
-    key          = "bashforge/terraform.tfstate"
-    region       = "us-east-1"
-    use_lockfile = true
-  }
+  backend "s3" {}
 }
 
 provider "aws" {

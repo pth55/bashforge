@@ -1,0 +1,6 @@
+region                  = "ap-south-1"
+key_name                = "bashforge-cicd"
+instance_type           = "t3.small"
+domain                  = "<elastic_ip>.nip.io"
+session_ttl_seconds     = 3600
+max_concurrent_sessions = 20
